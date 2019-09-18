@@ -21,10 +21,21 @@
                                     class="form-control"
                                     name="value"
                                     value="{{ mt_rand(500, 100000) / 100 }}"
+                                    required
                                 >
                                 <small class="form-text text-muted">
                                     Use values with up to two decimal positions, using dot "."
                                 </small>
+                            </div>
+                            <div class="col-auto">
+                                <label>Currency</label>
+                                <select class="custom-select" name="currency" required>
+                                    @foreach ($currencies as $currency)
+                                        <option value="{{ $currency->iso }}">
+                                            {{ strtoupper($currency->iso) }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="text-center mt-3">

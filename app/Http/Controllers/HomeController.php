@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Currency;
 
 class HomeController extends Controller
 {
@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $currencies = Currency::all();
+
+        return view('home')->with([
+            'currencies' => $currencies,
+        ]);
     }
 }
