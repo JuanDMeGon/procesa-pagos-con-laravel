@@ -41,10 +41,14 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label>Select the desired payment platform:</label>
-                                <div class="form-group">
+                                <div class="form-group" id="toggler">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                         @foreach ($paymentPlatforms as $paymentPlatform)
-                                            <label class="btn btn-outline-secondary rounded m-2 p-1">
+                                            <label
+                                                class="btn btn-outline-secondary rounded m-2 p-1"
+                                                data-target="#{{ $paymentPlatform->name }}Collapse"
+                                                data-toggle="collapse"
+                                            >
                                                 <input
                                                     type="radio"
                                                     name="payment_platform"
@@ -55,6 +59,15 @@
                                             </label>
                                         @endforeach
                                     </div>
+                                    @foreach ($paymentPlatforms as $paymentPlatform)
+                                        <div
+                                            id="{{ $paymentPlatform->name }}Collapse"
+                                            class="collapse"
+                                            data-parent="#toggler"
+                                        >
+                                            @includeIf('components.' . strtolower($paymentPlatform->name) . '-collapse')
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
