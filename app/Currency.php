@@ -8,7 +8,7 @@ class Currency extends Model
 {
     protected $primaryKey = 'iso';
 
-    protected $incrementing = false;
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
