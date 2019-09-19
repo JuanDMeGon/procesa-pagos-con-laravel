@@ -66,4 +66,17 @@ class PayPalService
             $isJsonRequest = true,
         );
     }
+
+    public function capturePayment($approvalId)
+    {
+        return $this->makeRequest(
+            'POST',
+            "/v2/checkout/orders/{$approvalId}/capture",
+            [],
+            [],
+            [
+                'Content-Type' => 'application/json',
+            ],
+        );
+    }
 }
