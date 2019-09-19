@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Traits\ConsumesExternalServices;
 
 class PayPalService
@@ -36,6 +37,17 @@ class PayPalService
         $credentials = base64_encode("{$this->clientId}:{$this->clientSecret}");
 
         return "Basic {$credentials}";
+    }
+
+    public function handlePayment(Request $request)
+    {
+        $order = $this->createOrder($request->value, $request->currency);
+
+        $orderLinks = collect($order->links);
+
+        $approve = $orderLinks->where('rel', 'approve')->first();
+
+        return redirect($approve->href);
     }
 
     public function createOrder($value, $currency)
