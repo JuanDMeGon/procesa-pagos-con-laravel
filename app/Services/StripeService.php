@@ -57,6 +57,8 @@ class StripeService
 
             $confirmation = $this->confirmPayment($paymentIntentId);
 
+            dd($confirmation);
+
             if ($confirmation->status === 'succeeded') {
                 $name = $confirmation->charges->data[0]->billing_details->name;
                 $currency = strtoupper($confirmation->currency);
