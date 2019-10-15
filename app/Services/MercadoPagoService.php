@@ -27,7 +27,7 @@ class MercadoPagoService
 
     public function resolveAuthorization(&$queryParams, &$formParams, &$headers)
     {
-        //
+        $queryParams['access_token'] = $this->resolveAccessToken();
     }
 
     public function decodeResponse($response)
@@ -37,7 +37,7 @@ class MercadoPagoService
 
     public function resolveAccessToken()
     {
-        //
+        return $this->secret;
     }
 
     public function handlePayment(Request $request)
