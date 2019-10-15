@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Traits\ConsumesExternalServices;
+use App\Services\CurrencyConversionService;
 
 class MercadoPagoService
 {
@@ -17,12 +18,16 @@ class MercadoPagoService
 
     protected $baseCurrency;
 
-    public function __construct()
+    protected $converter;
+
+    public function __construct(CurrencyConversionService $converter)
     {
         $this->baseUri = config('services.mercadopago.base_uri');
         $this->key = config('services.mercadopago.key');
         $this->secret = config('services.mercadopago.secret');
         $this->baseCurrency = config('services.mercadopago.base_currency');
+
+        $this->converter = $converter;
     }
 
     public function resolveAuthorization(&$queryParams, &$formParams, &$headers)
@@ -52,6 +57,7 @@ class MercadoPagoService
 
     public function resolveFactor($currency)
     {
-        //
+        return $this->converter
+            ->convertCurrency($currency, $this->baseCurrency);
     }
 }
