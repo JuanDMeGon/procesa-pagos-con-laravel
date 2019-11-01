@@ -1,7 +1,7 @@
 <p align="center"><img src="https://repository-images.githubusercontent.com/209256176/15efc480-dd83-11e9-9f81-f2c67ccac06a"></p>
 
 ## Procesa pagos con Laravel y las mejores plataformas de pagos
-Este repositorio es el resultado del curso que puedes encontar [acá](https://www.udemy.com/course/procesa-pagos-en-linea-con-laravel-y-pasarelas-de-pagos-paypal-stripe/?couponCode=SOCIAL_LOW)acá.
+Este repositorio es el resultado del curso que puedes encontar [acá](https://www.udemy.com/course/procesa-pagos-en-linea-con-laravel-y-pasarelas-de-pagos-paypal-stripe/?referralCode=23F6FEDB611DEF416097).
 
 Integra pasarelas de pago como PayPal y Stripe para recibir pagos en línea usando sus APIs desde Laravel.
 
