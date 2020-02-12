@@ -132,7 +132,7 @@ class PayUService
                         'buyer' => [
                             'fullName' => $name,
                             'emailAddress' => $email,
-                            'shippingAdress' => [
+                            'shippingAddress' => [
                                 'street1' => '',
                                 'city' => '',
                             ],
