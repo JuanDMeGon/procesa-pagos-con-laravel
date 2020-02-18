@@ -51,29 +51,29 @@ class PayUService
     public function handlePayment(Request $request)
     {
         $request->validate([
-            'card' => 'required',
-            'cvc' => 'required',
-            'year' => 'required',
-            'month' => 'required',
-            'network' => 'required',
-            'name' => 'required',
-            'email' => 'required',
+            'payu_card' => 'required',
+            'payu_cvc' => 'required',
+            'payu_year' => 'required',
+            'payu_month' => 'required',
+            'payu_network' => 'required',
+            'payu_name' => 'required',
+            'payu_email' => 'required',
         ]);
 
         $payment = $this->createPayment(
             $request->value,
             $request->currency,
-            $request->name,
-            $request->email,
-            $request->card,
-            $request->cvc,
-            $request->year,
-            $request->month,
-            $request->network,
+            $request->payu_name,
+            $request->payu_email,
+            $request->payu_card,
+            $request->payu_cvc,
+            $request->payu_year,
+            $request->payu_month,
+            $request->payu_network,
         );
 
         if ($payment->transactionResponse->state === "APPROVED") {
-            $name = $request->name;
+            $name = $request->payu_name;
 
             $amount = $request->value;
             $currency = strtoupper($request->currency);
