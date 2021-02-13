@@ -15,11 +15,14 @@ class PayPalService
 
     protected $clientSecret;
 
+    protected $plans;
+
     public function __construct()
     {
         $this->baseUri = config('services.paypal.base_uri');
         $this->clientId = config('services.paypal.client_id');
         $this->clientSecret = config('services.paypal.client_secret');
+        $this->plans = config('services.paypal.plans');
     }
 
     public function resolveAuthorization(&$queryParams, &$formParams, &$headers)
@@ -72,6 +75,11 @@ class PayPalService
         return redirect()
             ->route('home')
             ->withErrors('We cannot capture your payment. Try again, please');
+    }
+
+    public function handleSubscription(Request $request)
+    {
+        dd($this->plans);
     }
 
     public function createOrder($value, $currency)
