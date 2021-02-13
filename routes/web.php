@@ -22,3 +22,20 @@ Route::get('/payments/cancelled', 'PaymentController@cancelled')->name('cancelle
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('subscribe')
+    ->name('subscribe.')
+    ->group(function() {
+        Route::get('/', 'SubscriptionController@show')
+            ->name('show');
+
+        Route::post('/', 'SubscriptionController@store')
+            ->name('store');
+
+        Route::get('/approval', 'SubscriptionController@approval')
+            ->name('approval');
+
+        Route::get('/cancelled', 'SubscriptionController@cancelled')
+            ->name('cancelled');
+    });
+
