@@ -42,4 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class);
     }
+
+    public function hasActiveSubscription()
+    {
+        // return true;
+        return optional($this->subscription)->isActive() ?? false;
+    }
 }
