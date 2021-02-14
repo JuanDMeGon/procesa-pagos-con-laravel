@@ -124,6 +124,33 @@ class PayPalService
         );
     }
 
+    public function createSubscription($planSlug, $name, $email)
+    {
+        return $this->makeRequest(
+            'POST',
+            '/v1/billing/subscriptions',
+            [],
+            [
+                'plan_id' => $this->plans[$planSlug],
+                'subscriber' => [
+                    'name' => [
+                        'given_name' => $name,
+                    ],
+                    'email_address' => $email,
+                ],
+                'application_context' => [
+                    'brand_name' => config('app.name'),
+                    'shipping_preference' => 'NO_SHIPPING',
+                    'user_action' => 'SUBSCRIBE_NOW',
+                    'return_url' => route('subscribe.approval', ['plan' => $planSlug]),
+                    'cancel_url' => route('subscribe.cancelled'),
+                ]
+            ],
+            [],
+            $isJsonRequest = true,
+        );
+    }
+
     public function resolveFactor($currency)
     {
         $zeroDecimalCurrencies = ['JPY'];
