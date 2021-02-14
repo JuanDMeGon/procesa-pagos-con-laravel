@@ -31,6 +31,10 @@ class PaymentController extends Controller
 
         session()->put('paymentPlatformId', $request->payment_platform);
 
+        if ($request->user()->hasActiveSubscription()) {
+            $request->value = round($request->value * 0.9, 2);
+        }
+
         return $paymentPlatform->handlePayment($request);
     }
 
