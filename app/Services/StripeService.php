@@ -86,7 +86,42 @@ class StripeService
 
     public function handleSubscription(Request $request)
     {
-        dd($this->plans, $request->all());
+        $customer = $this->createCustomer(
+            $request->user()->name,
+            $request->user()->email,
+            $request->payment_method
+        );
+
+        $subscription = $this->createSubscription(
+            $customer->id,
+            $request->payment_method,
+            $this->plans[$request->plan]
+        );
+
+        if ($subscription->status == 'active') {
+            session()->put('subscriptionId', $subscription->id);
+
+            return redirect()->route(
+                'subscribe.approval',
+                [
+                    'plan' => $request->plan,
+                    'subscription_id' => $subscription->id,
+                ],
+            );
+        }
+    }
+
+    public function validateSubscription(Request $request)
+    {
+        if (session()->has('subscriptionId')) {
+            $subscriptionId = session()->get('subscriptionId');
+
+            session()->forget('subscriptionId');
+
+            return $request->subscription_id == $subscriptionId;
+        }
+
+        return false;
     }
 
     public function createIntent($value, $currency, $paymentMethod)
